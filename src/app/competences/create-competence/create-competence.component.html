@@ -1,0 +1,127 @@
+<p-toast></p-toast>
+<div class="col-12">
+  <app-card cardTitle="Creation Competence" headerClass="borderless" cardClass="table-card review-card" style="min-height: 50px">
+    <div class="review-block">
+      <div class="row">
+        <div class="col">
+          <form [formGroup]="formCompetenece" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="latest-update-box">
+                  <!--
+                  <div class="row p-t-30 p-b-30">
+                    <div class="col-xl-3 col-md-12  update-meta">
+                      <span class="text-muted m-b-0 d-inline-flex">Groupe Competence</span>
+                    </div>
+                    <div class="col-xl-9 col-md-12">
+                      <p-dropdown formControlName="groupecompetence" [options]="grpecompetences" [(ngModel)]="selectedGroupe"
+                                  optionLabel="libelle" [filter]="true" filterBy="libelle" [showClear]="true"
+                                  placeholder="Choisir le groupe de competence">
+                        <ng-template let-competence pTemplate="item" >
+                          <div class="country-item">
+                            <div>{{competence.libelle}}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  -->
+                  <div class="row p-t-30 p-b-30">
+                    <div class="col-xl-3 col-md-12 update-meta">
+                      <span class="text-muted m-b-0 d-inline-flex">Libelle</span>
+                    </div>
+                    <div class="col-xl-9 col-md-12">
+                      <input formControlName="libelle" type="text"  class="form-control"  placeholder="Ecrire le libelle">
+                    </div>
+                  </div>
+                  <div class="row p-t-30 p-b-30">
+                    <div class="col-xl-3 col-md-12  update-meta">
+                      <span class="text-muted m-b-0 d-inline-flex">Descriptif</span>
+                    </div>
+                    <div class="col-xl-9 col-md-12">
+                      <textarea formControlName="descriptif" class="form-control" placeholder="Ecrire le descriptif du competence"></textarea>
+                    </div>
+                  </div>
+                  <div class="row p-b-30">
+                    <div class="col-xl-3 col-md-12 update-meta">
+                      <span class="text-muted m-b-0 d-inline-flex">Niveaux</span>
+                      <input type="hidden" formControlName="niveaux">
+                    </div>
+                    <div class="col-xl-9 col-md-12">
+                      <p-tabView>
+                        <p-tabPanel header="Niveau1">
+                          <div class="row border border-3">
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <textarea formControlName="critereEvaluation1"  class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                    <textarea formControlName="groupeAction1"  class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                  </p-scrollPanel>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Niveau2">
+                          <div class="row border border-3">
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <textarea formControlName="critereEvaluation2" class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                    <textarea formControlName="groupeAction2"  class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                  </p-scrollPanel>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Niveau3">
+                          <div class="row border border-3">
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <textarea formControlName="critereEvaluation3"  class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                    <textarea formControlName="groupeAction3"  class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                  </p-scrollPanel>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                      </p-tabView>
+                    </div>
+                  </div>
+                </div>
+                <p-button type="submit"  label="Ajouter Competence" styleClass="p-button-success"></p-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </app-card>
+</div>
+

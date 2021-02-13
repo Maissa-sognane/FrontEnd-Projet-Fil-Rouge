@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-7 col-sm-12" >
+      <div class="row">
+        <div class="col-sm-6">
+          <app-card [hidHeader]="true" cardClass="support-bar overflow-hidden" blockClass="p-0" [isCardFooter]="true" footerClass="bg-primary text-white">
+            <div class="p-20 pb-0">
+              <h2 class="m-0">350</h2>
+              <span class="text-c-blue">Support Requests</span>
+              <p class="mb-3 mt-3">Total number of support requests that come in.</p>
+            </div>
+            <app-apex-chart chartID="support-chart-1" ></app-apex-chart>
+            <div class="app-card-footer">
+              <div class="row text-center">
+                <div class="col">
+                  <h4 class="m-0 text-white">10</h4>
+                  <span>Open</span>
+                </div>
+                <div class="col">
+                  <h4 class="m-0 text-white">5</h4>
+                  <span>Running</span>
+                </div>
+                <div class="col">
+                  <h4 class="m-0 text-white">3</h4>
+                  <span>Solved</span>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </div>
+        <div class="col-sm-6">
+          <app-card [hidHeader]="true" cardClass="support-bar overflow-hidden" blockClass="p-0" [isCardFooter]="true" footerClass="bg-success text-white">
+            <div class="p-20 pb-0">
+              <h2 class="m-0">350</h2>
+              <span class="text-c-green">Support Requests</span>
+              <p class="mb-3 mt-3">Total number of support requests that come in.</p>
+            </div>
+            <app-apex-chart chartID="support-chart-2" ></app-apex-chart>
+            <div class="app-card-footer">
+              <div class="row text-center">
+                <div class="col">
+                  <h4 class="m-0 text-white">10</h4>
+                  <span>Open</span>
+                </div>
+                <div class="col">
+                  <h4 class="m-0 text-white">5</h4>
+                  <span>Running</span>
+                </div>
+                <div class="col">
+                  <h4 class="m-0 text-white">3</h4>
+                  <span>Solved</span>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </div>
+      <!--
+      <div class="col-xl-4 col-md-12">
+        <app-card [hidHeader]="true">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h3>$16,756</h3>
+              <h6 class="text-muted m-b-0">Visits<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      -->
+    </div>
+    <div class="col-xl-5 col-sm-12">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <div class="row">
+              <div class="col">
+                <button pButton pRipple label="Lister" icon="pi pi-align-justify" class="p-button-warning p-mr-2" [routerLink]="['user-liste']" ></button>
+              </div>
+              <div class="col">
+                <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success" [routerLink]="['user-create']"></button>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"
+                          styleClass="p-button-secondary"></p-fileUpload>
+          </ng-template>
+        </p-toolbar>
+      </div>
+    </div>
+    <!-- site Analytics card end
+    -->
+
+    <router-outlet></router-outlet>
+
+    <!-- Boutton pour lister ou creeer administration --->
+    <!--
+      <div class="col-xl-3 col-md-12">
+        <app-card [hidHeader]="true">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <p-button label="Ajouter" icon="pi pi-plus"  styleClass="p-button-secondary"></p-button>
+            </div>
+            <div class="col-6">
+
+            </div>
+          </div>
+        </app-card>
+      </div>
+      <div class="col-xl-3 col-md-12">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h3>49.54%</h3>
+              <h6 class="text-muted m-b-0">Bounce Rate<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
+            </div>
+            <div class="col-6">
+
+            </div>
+          </div>
+      </div>
+
+       project and team member start -->
+    <!-- project and team member end -->
+    <!-- seo end -->
+  </div>
+</div>
+

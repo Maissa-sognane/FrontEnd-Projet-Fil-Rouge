@@ -1,0 +1,70 @@
+<p-toast></p-toast>
+<div class="col-12">
+  <app-card cardTitle="Ajouter User" headerClass="borderless" cardClass="table-card review-card user-create">
+    <div class="review-block">
+      <div class="row">
+        <div class="col-sm-auto p-r-0">
+          <img [src]="url" alt="user image" class="img-radius profile-img cust-img m-b-15">
+        </div>
+        <div class="col">
+          <hr>
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="prenom">Prenom</label>
+                <input type="text" formControlName="prenom" class="form-control" id="prenom" placeholder="Prenom">
+                <small *ngIf="!userForm.get('prenom').valid && userForm.get('prenom').touched" class="text-danger">Entrer le prenom</small>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nom">Nom</label>
+                <input type="text" formControlName="nom" class="form-control" id="nom" placeholder="Nom">
+                <small *ngIf="!userForm.get('nom').valid && userForm.get('nom').touched" class="text-danger">Entrer le nom</small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <small *ngIf="!userForm.get('email').valid && userForm.get('email').touched" class="text-danger">Email obligatoire</small>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="inputPassword4" placeholder="Password">
+                <small *ngIf="!userForm.get('password').valid && userForm.get('password').touched" class="text-danger">Entrer Password</small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="profil">Profil</label>
+                <p-dropdown [options]="profils" id="profil" name="profil" formControlName="profil" class="form-control"  [(ngModel)]="selectedProfils"
+                            optionLabel="libelle" [filter]="true" filterBy="libelle" [showClear]="true" placeholder="Choisir le profil">
+                  <ng-template  pTemplate="selectedItem">
+                    <div class="country-item country-item-value"  *ngIf="selectedProfils">
+                      <div>{{selectedProfils.libelle}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-profil pTemplate="item">
+                    <div class="country-item">
+                      <div>{{profil.libelle}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <br>
+                <small *ngIf="!userForm.get('profil').valid && userForm.get('profil').touched" class="text-danger">Entrer le profil</small>
+              </div>
+              <div class="form-group col-md-6 upload-btn-wrapper">
+                <label for="avatar">Avatar</label>
+                <button class="btnFile form-control">Choisir l'avatar</button>
+                <input type="file" name="avatar"  aria-label="File browser example" formControlName="avatar" id="avatar"  (change)="onSelectFile($event)" />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success" >Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </app-card>
+</div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+

@@ -1,0 +1,295 @@
+<p-toast></p-toast>
+<div class="col-xl-12 col-sm-12">
+  <div class="row">
+    <div class="col-md-3">
+      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-yellow">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="text-c-yellow">3</h4>
+            <h6 class="text-muted m-b-0">Administrateurs</h6>
+          </div>
+          <div class="col-4 text-right">
+            <i class=" fas fa-user-shield  f-28"></i>
+          </div>
+        </div>
+        <div class="app-card-footer">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <button pButton pRipple type="button" label="lister"
+                      class="p-button-raised p-button-secondary p-button-text" (click)="readAdmin()"  style="color: white"></button>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-md-3">
+      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-green">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="text-c-green">5</h4>
+            <h6 class="text-muted m-b-0">Formateurs</h6>
+          </div>
+          <div class="col-4 text-right">
+            <i class="fas fa-user-tie f-28"></i>
+          </div>
+        </div>
+        <div class="app-card-footer">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <button pButton pRipple type="button" label="lister"
+                      class="p-button-raised p-button-secondary p-button-text" (click)="readFormateur()" style="color: white"></button>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-md-3">
+      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-red">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="text-c-red">90</h4>
+            <h6 class="text-muted m-b-0">Apprenants</h6>
+          </div>
+          <div class="col-4 text-right">
+
+            <i class="fas fa-user-graduate f-28"></i>
+          </div>
+        </div>
+        <div class="app-card-footer">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <button pButton pRipple type="button" label="lister"
+                      class="p-button-raised p-button-secondary p-button-text" (click)="readApprenant()" style="color: white"></button>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-md-3">
+      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-blue">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="text-c-blue">1</h4>
+            <h6 class="text-muted m-b-0">CM</h6>
+          </div>
+          <div class="col-4 text-right">
+            <i class="fas fa-user-circle f-28"></i>
+          </div>
+        </div>
+        <div class="app-card-footer">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <button pButton pRipple type="button" label="lister"
+                      class="p-button-raised p-button-secondary p-button-text" (click)="readCM()" style="color: white"></button>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+
+
+</div>
+<div class="col-12">
+  <div class="row">
+    <div class="col-xl-7 col-md-12">
+      <app-card cardTitle="Gestion Utilisateurs" cardClass="table-card" blockClass="p-0">
+        <div class="table-responsive">
+          <div class="p-20 pb-0 mb-3 mt-3">
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+          </div>
+          <p-table
+            [value]="UserAfficher"
+            selectionMode="single"
+            [(selection)]="selectedUser"
+            #dt1 dataKey="email"
+            (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+            [columns]="scrollableCols" [frozenColumns]="frozenCols"
+            [scrollable]="true"
+            scrollHeight="300px"
+            [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[2,5,10,25,50]" [loading]="loading"
+            styleClass="p-datatable-customers  p-datatable-sm"
+            [paginator]="true" currentPageReportTemplate=""
+            [globalFilterFields]="['prenom','nom','email']"
+          >
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Avatar</th>
+                <th>
+                  Prenom
+                </th>
+                <th>
+                  Nom
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-customer>
+              <tr [pSelectableRow]="customer">
+                <td>
+                  <p-avatar image="{{'data:image/jpeg;base64,' + customer.avatar}}" pBadge value="4" severity="danger" styleClass="p-mr-2" size="large"></p-avatar>
+                </td>
+                <td>
+                  <!-- <img src="assets/images/gallery-grid/masonry-1.jpg" [class]="'flag flag-' + customer.country.code" width="30"> -->
+                  <span class="image-text">{{customer.prenom}}</span>
+                </td>
+                <td>
+                  {{customer.nom}}
+                </td>
+                <td>
+                  {{customer.email}}
+                  <!--  <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                    <span class="image-text">{{customer.representative.name}}</span>-->
+                </td>
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <button pButton pRipple type="button" label="Archiver" class="p-button-sm p-button-danger" title="Archiver"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">Non trouvé</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </app-card>
+    </div>
+
+      <div class="col-xl-5 col-md-12" *ngIf="UserSelected">
+        <app-card>
+          <form [formGroup]="userForm">
+            <div class="latest-update-box">
+            <div class="row p-t-30 p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p-avatar image="{{'data:image/jpeg;base64,' + UserSelected.avatar}}" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
+              </div>
+              <div class="col">
+                <a href="javascript:">
+                  <h4 >DETAIL</h4>
+                </a>
+                <p class="text-muted m-b-0">{{UserSelected.prenom}} {{UserSelected.nom}}</p>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Nom</p>
+              </div>
+              <div class="col">
+                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
+                  <ng-template pTemplate="display">
+                    {{UserSelected.nom}}
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <input  formControlName="nom" type="text" id="prenom" placeholder="Modifier le nom" pInputText>
+                  </ng-template>
+                </p-inplace>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Prenom</p>
+              </div>
+              <div class="col">
+                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
+                  <ng-template pTemplate="display">
+                    {{UserSelected.prenom}}
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <input  formControlName="prenom" type="text" placeholder="Modifier le prenom" pInputText>
+                  </ng-template>
+                </p-inplace>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Email</p>
+              </div>
+              <div class="col">
+                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
+                  <ng-template pTemplate="display">
+                    {{UserSelected.email}}
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <input  formControlName="email" type="text" placeholder="Modifier email" pInputText>
+                  </ng-template>
+                </p-inplace>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Profil</p>
+              </div>
+              <div class="col">
+                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
+                  <ng-template pTemplate="display">
+                    {{profil}}
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <input type="text" disabled value="{{profil}}" pInputText>
+                  </ng-template>
+                </p-inplace>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Date Naissance</p>
+              </div>
+              <div class="col">
+                <a href="javascript:">
+                  <h6>A mettre</h6>
+                </a>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-2 d-inline-flex">Lieu de Naissance</p>
+              </div>
+              <div class="col">
+                <a href="javascript:">
+                  <h6>A mettre</h6>
+                </a>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-right update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">Telephone</p>
+              </div>
+              <div class="col">
+                <a href="javascript:">
+                  <h6>A mettre</h6>
+                </a>
+              </div>
+            </div>
+          </div>
+            <div class="text-center">
+              <button pButton pRipple type="submit"  label="Sauvegarder" class="p-button-sm p-button-success"
+                       title="Sauvegarder" (click)="editUser(UserSelected)"></button>
+
+            <!--<a href="javascript:" class="b-b-primary text-primary">View all Projects</a>-->
+          </div>
+          </form>
+        </app-card>
+      </div>
+
+
+  </div>
+</div>
+

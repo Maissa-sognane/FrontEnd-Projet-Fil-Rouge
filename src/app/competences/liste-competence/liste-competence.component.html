@@ -1,0 +1,265 @@
+<p-toast></p-toast>
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <app-card cardTitle="Lister les competences" headerClass="borderless" cardClass="table-card review-card" style="min-height: 50px">
+      <div class="review-block">
+        <div class="row">
+          <div class="col-xl-6 col-md-7">
+            <h5>Groupes Competences</h5>
+            <p-dropdown [options]="grpecomptence" [(ngModel)]="selectedGrpeCompetence"
+                        optionLabel="libelle" [filter]="true" filterBy="libelle" [showClear]="true"
+                         placeholder="Choisir le groupe de competence">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>{{selectedGrpeCompetence.libelle}}</div>
+                </div>
+              </ng-template>
+              <ng-template let-competence pTemplate="item" >
+                <div class="country-item">
+                  <div>{{competence.libelle}}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div  class="col-xl-6 col-md-10 list-group" id="list-tab" role="tablist" style="padding: .5em 0 1em 0" *ngIf="selectedGrpeCompetence">
+            <p-orderList [value]="selectedGrpeCompetence['competence']" [listStyle]="{'height':'auto'}" header="Competences"
+                         filterBy="libelle" filterPlaceholder="Recherche Competence">
+              <ng-template let-competence let-index pTemplate="item">
+                <div #competence (click)="recupererCompetence(competence)"  class="product-item">
+                  <div class="product-list-detail" (click)="activeIndex = competence.tabIndex">
+                    <h5 class="p-mb-2">{{competence.libelle}}</h5>
+                  </div>
+                  <div class="product-list-action">
+                  <!--  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" [routerLink]="['edit-competence', competence.id]"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button> -->
+                    <button  type="button" (click)="visibleSidebar5  = true; detailCompetence(competence)"  pButton pRipple
+                            icon="pi pi-pencil" class="p-button-secondary"></button>
+                  </div>
+                </div>
+              </ng-template>
+            </p-orderList>
+          </div>
+          <div class="col-xl-6 col-md-12">
+            <p-tabView  [(activeIndex)]="activeIndex" *ngIf="niveaux">
+              <p-tabPanel header="{{niveaux[0].libelle}}">
+                <div class="row border border-3">
+                  <div class="col">
+                    <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[0].critereEvaluation}}
+                    </p-scrollPanel>
+                  </div>
+                  <div class="col ">
+                    <h5 style="text-align: center; color: red">Groupe Action</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[0].groupeAction}}
+                    </p-scrollPanel>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="{{niveaux[1].libelle}}">
+                <div class="row border border-3">
+                  <div class="col">
+                    <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[1].critereEvaluation}}
+                    </p-scrollPanel>
+                  </div>
+                  <div class="col ">
+                    <h5 style="text-align: center; color: red">Groupe Action</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[1].groupeAction}}
+                    </p-scrollPanel>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="{{niveaux[2].libelle}}">
+                <div class="row border border-3">
+                  <div class="col">
+                    <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[2].critereEvaluation}}
+                    </p-scrollPanel>
+                  </div>
+                  <div class="col ">
+                    <h5 style="text-align: center; color: red">Groupe Action</h5>
+                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                      {{niveaux[2].groupeAction}}
+                    </p-scrollPanel>
+                  </div>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+
+        <p-sidebar *ngIf="competencesDetails" [style]="{'overflow': 'scroll'}"  [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
+          <h2 class="m-b-0 d-inline-flex">Details Competence</h2>
+          <form [formGroup]="competenceForm">
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="latest-update-box">
+                  <div class="row p-t-30 p-b-30">
+                    <div class="col-auto text-right update-meta">
+                      <h4 class="text-muted m-b-0 d-inline-flex">Libelle</h4>
+                    </div>
+                    <div class="col">
+                      <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                        <ng-template pTemplate="display">
+                         {{competencesDetails.libelle}}
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                          <input formControlName="libelle" type="text" value="{{competencesDetails.libelle}}" pInputText>
+                        </ng-template>
+                      </p-inplace>
+                    </div>
+                  </div>
+                  <div class="row p-b-30">
+                    <div class="col-auto text-right update-meta">
+                      <h4 class="text-muted m-b-0 d-inline-flex">Niveaux</h4>
+                      <input type="hidden" formControlName="niveaux">
+                    </div>
+                    <div class="col">
+                      <p-tabView *ngIf="competencesDetails['niveaux']">
+                        <p-tabPanel header="{{competencesDetails['niveaux'][0].libelle}}">
+                          <input type="hidden" formControlName="niveau1" value="{{competencesDetails['niveaux'][0].libelle}}">
+                          <div class="row border border-3">
+                            <div class="col">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                  <ng-template pTemplate="display">
+                                    {{competencesDetails['niveaux'][0].critereEvaluation}}
+                                  </ng-template>
+                                  <ng-template pTemplate="content">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <textarea formControlName="critereNiveau1"  value="{{competencesDetails['niveaux'][0].critereEvaluation}}" pInputText></textarea>
+                                      </div>
+                                    </div>
+                                  </ng-template>
+                                </p-inplace>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col ">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                    <ng-template pTemplate="display">
+                                      {{competencesDetails['niveaux'][0].groupeAction}}
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <textarea formControlName="groupeNiveau1" value="{{competencesDetails['niveaux'][0].groupeAction}}" pInputText></textarea>
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                  </p-inplace>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="{{competencesDetails['niveaux'][1].libelle}}">
+                          <input type="hidden" formControlName="niveau2" value="{{competencesDetails['niveaux'][1].libelle}}">
+                          <div class="row border border-3">
+                            <div class="col">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                  <ng-template pTemplate="display">
+                                    {{competencesDetails['niveaux'][1].critereEvaluation}}
+                                  </ng-template>
+                                  <ng-template pTemplate="content">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <textarea formControlName="critereNiveau2"  value="{{competencesDetails['niveaux'][1].critereEvaluation}}" pInputText></textarea>
+                                      </div>
+                                    </div>
+                                  </ng-template>
+                                </p-inplace>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col ">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                    <ng-template pTemplate="display">
+                                      {{competencesDetails['niveaux'][1].groupeAction}}
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <textarea formControlName="groupeNiveau2" value="{{competencesDetails['niveaux'][1].groupeAction}}" pInputText></textarea>
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                  </p-inplace>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="{{competencesDetails['niveaux'][2].libelle}}">
+                          <input type="hidden" formControlName="niveau3" value="{{competencesDetails['niveaux'][2].libelle}}">
+                          <div class="row border border-3">
+                            <div class="col">
+                              <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                  <ng-template pTemplate="display">
+                                    {{competencesDetails['niveaux'][2].critereEvaluation}}
+                                  </ng-template>
+                                  <ng-template pTemplate="content">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <textarea formControlName="critereNiveau3"  value="{{competencesDetails['niveaux'][2].critereEvaluation}}" pInputText></textarea>
+                                      </div>
+                                    </div>
+                                  </ng-template>
+                                </p-inplace>
+                              </p-scrollPanel>
+                            </div>
+                            <div class="col">
+                              <h5 style="text-align: center; color: red">Groupe Action</h5>
+                              <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                  <p-inplace title="Cliquer pour modifier" [closable]="true" >
+                                    <ng-template pTemplate="display">
+                                      {{competencesDetails['niveaux'][2].groupeAction}}
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <textarea formControlName="groupeNiveau3"  value="{{competencesDetails['niveaux'][2].groupeAction}}" pInputText></textarea>
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                  </p-inplace>
+                                </p-scrollPanel>
+                              </p-scrollPanel>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                      </p-tabView>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p-button  (click)="onSubmit(competencesDetails)" type="submit"  label="Sauvegarde" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar5 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+          </form>
+        </p-sidebar>
+        <router-outlet></router-outlet>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+

@@ -1,0 +1,55 @@
+:host ::ng-deep .p-multiselect {
+  min-width: 25rem;
+}
+
+:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
+  min-width: 20rem;
+}
+
+:host ::ng-deep .multiselect-custom {
+  .p-multiselect-label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+}
+.card.ng-tns-c99-6.ng-trigger.ng-trigger-cardRemove.table-card.review-card.user-create{
+  width: 137%;
+  background: red;
+}
+p-fileUpload{
+  min-width: 35rem;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btnFile {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 30rem;
+}
+
+.country-item-value {
+  img.flag {
+    width: 17px;
+  }
+}

@@ -1,0 +1,64 @@
+<p-toast></p-toast>
+<div class="row">
+  <div class="col-12">
+    <app-card cardTitle="Modification Groupe Competence" headerClass="borderless" cardClass="table-card review-card" style="min-height: 50px">
+      <div class="review-block">
+        <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="retourListe()" class="p-button-rounded p-button-secondary p-button-text"></button>
+        <div class="row">
+          <div class="col-xl-12">
+            <form  style="height: 405px">
+              <div class="row">
+                <label for="libelle" class="col-sm-2 col-form-label">Libelle</label>
+                <div class="col-sm-6">
+                  <input  formControlName="libelle" type="text" class="form-control" id="libelle" placeholder="Ecrire libelle">
+                </div>
+                <!--  <div class="col-sm-4">
+                    <p-message severity="error" text="Libelle is required"
+                               *ngIf="!formGroupeCompetence.controls['libelle'].valid && formGroupeCompetence.controls['libelle'].dirty"></p-message>
+                  </div> -->
+              </div>
+              <br>
+              <div class="row">
+                <label for="descriptif" class="col-sm-2 col-form-label">Descriptif</label>
+                <div class="col-sm-6">
+                  <textarea formControlName="descriptif" class="form-control" id="descriptif" placeholder="Ecrire le descriptif"></textarea>
+                </div>
+                <!--  <div class="col-sm-4">
+                   <p-message severity="error" text="Libelle is required"
+                              *ngIf="!formGroupeCompetence.controls['libelle'].valid && formGroupeCompetence.controls['libelle'].dirty"></p-message>
+                 </div> -->
+              </div>
+              <br>
+              <div class="row">
+                <label  class="col-sm-2 col-form-label">Competences</label>
+                <div class="col-sm-6">
+                  <!--
+                  <p-autoComplete formControlName="competence" id="competence" [(ngModel)]="selectedCompetenceAdvanced" [suggestions]="filteredCompetences"
+                                  (completeMethod)="filterCompetence($event)" field="libelle"
+                                  [multiple]="true" [dropdown]="true" placeholder="Selectionner les competences">
+                    <ng-template let-competence pTemplate="item">
+                      <div class="country-item">
+                        <div>{{competence.libelle}}</div>
+                      </div>
+                    </ng-template>
+                  </p-autoComplete>-->
+                </div>
+                <!--  <div class="col-sm-4">
+                 <p-message severity="error" text="Libelle is required"
+                            *ngIf="!formGroupeCompetence.controls['libelle'].valid && formGroupeCompetence.controls['libelle'].dirty"></p-message>
+               </div> -->
+              </div>
+              <br>
+              <br>
+              <div class="row">
+                <div class="col-xl-6 col-md-12">
+                  <button pButton pRipple type="submit" label="Modifier" class="p-button-success"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

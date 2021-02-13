@@ -1,0 +1,123 @@
+<p-toast></p-toast>
+<router-outlet></router-outlet>
+<div class="row">
+  <!--
+    <div *ngFor="let groupecompetence of groupecompetence" class="col-xl-4 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-9">
+              <h5>{{groupecompetence.libelle}}</h5>
+            </div>
+            <div class="col-3 text-right">
+              <div class="row">
+                <div class="col-2">
+                   <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text" title="modifier"></button>
+                  <a><i class="pi pi-pencil" style="color: #42C0FB" title="modifier"></i></a>
+                </div>
+                <div class="col-2">
+                   <button pButton pRipple type="button" icon="pi pi-times" class="p-button-text p-button-danger" title="supprimer"></button>
+                  <a><i class="pi pi-times" style="color: red" title="supprimer"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <h5 class="card-title">Description</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <div class="barreBorder"></div>
+            </div>
+            <div class="col-12">
+              <p-fieldset  legend="Competences" [transitionOptions]="'400ms'" [toggleable]="true">
+                <h6 *ngFor="let competence of groupecompetence['competence']">{{competence.libelle}}</h6>
+              </p-fieldset>
+              <div class="barreBorder"></div>
+            </div>
+            <div class="col-12">
+              <p-fieldset  legend="Tags" [toggleable]="true">
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </p-fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->
+    <div *ngIf="editing===true" class="col-xl-12">
+      <div class="card">
+        <p-dataView  #dv [value]="groupecompetence" [paginator]="true" [rows]="4" filterBy="libelle"
+                    [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+          <ng-template pTemplate="header">
+            <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+              <!--
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+              -->
+              <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search by libelle" (input)="dv.filter($event.target.value)">
+              </span>
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+          </ng-template>
+          <ng-template let-groupecompetenceListe pTemplate="listItem">
+            <div class="p-xl-12 p-md-12">
+              <div class="product-list-item">
+                <div class="product-list-detail">
+                  <div class="product-name">{{groupecompetenceListe.libelle}}</div>
+                  <!--
+                  <div class="product-description">Competences</div>
+                  <div *ngFor="let competence of groupecompetenceListe['competence']">
+                    <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{competence.libelle}}</span>
+                  </div>
+                  -->
+                </div>
+                <div class="product-list-action">
+                  <span class="product-price">Action</span>
+                  <p-button icon="pi pi-pencil" title="modifier" label="modifier"></p-button>
+                  <p-button icon="pi pi-times" styleClass="p-button-danger" title="supprimer" label="archiver"></p-button>
+              <!--    <span [class]="'product-badge status-' + product.id.toLowerCase()">{{product.id}}</span> -->
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template let-groupecompetenceCard pTemplate="gridItem">
+              <div class="p-xl-6 p-md-12">
+                <div class="product-grid-item card">
+                  <div class="product-grid-item-top">
+                    <div>
+                      <i class="pi pi-tag product-category-icon"></i>
+                      <span class="product-category">{{groupecompetenceCard.libelle}}</span>
+                    </div>
+                    <!--   <span [class]="'product-badge status-' + product.id.toLowerCase()">{{product.id}}</span> -->
+                  </div>
+                    <p-fieldset  legend="Competences" [transitionOptions]="'4ms'" [toggleable]="true" [collapsed]="true">
+                      <h6 *ngFor="let competence of groupecompetenceCard['competence']">{{competence.libelle}}</h6>
+                    </p-fieldset>
+                    <p-fieldset  legend="Tags" [toggleable]="true" [collapsed]="true">
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </p-fieldset>
+                    <div class="product-name">Description</div>
+                    <div class="product-description">Description</div>
+                  <div class="product-grid-item-bottom">
+                   <!-- <span class="product-price">Action</span> -->
+                    <p-button  [routerLink]="['edit', groupecompetenceCard.id]" icon="pi pi-pencil" title="modifier"></p-button>
+                    <p-button icon="pi pi-times" styleClass="p-button-danger" title="supprimer"></p-button>
+                  </div>
+                </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+    </div>
+</div>
+
+
