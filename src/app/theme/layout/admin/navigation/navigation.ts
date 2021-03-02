@@ -91,7 +91,7 @@ const NavigationItems = [
             id: 'referentiel',
             title: 'referentiel',
             type: 'item',
-            url: '/basic/alert'
+            url: 'referentiel/liste'
           },
           /*{
             id: 'button',

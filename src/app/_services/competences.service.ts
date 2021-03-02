@@ -32,4 +32,13 @@ export class CompetencesService {
   getCompetences() {
     return this.http.get(`${environment.apiUrl}/api/admin/competences`, this.httpOptions);
   }
+  getGroupeCompetenceById(id) {
+    return this.http.get(`${environment.apiUrl}/api/admin/grpecompetence/${id}`, this.httpOptions);
+  }
+  putGroupeCometence(id, grpeCompetence) {
+    return this.http.put(`${environment.apiUrl}/api/admin/grpecompetence/${id}`, grpeCompetence);
+  }
+  deleteGroupeCometence(id) {
+    return this.http.delete(`${environment.apiUrl}/api/admin/grpecompetence/${id}`);
+  }
 }

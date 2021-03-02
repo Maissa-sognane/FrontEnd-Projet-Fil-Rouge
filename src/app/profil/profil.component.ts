@@ -16,6 +16,12 @@ export class ProfilComponent implements OnInit {
   profilForm: FormGroup;
   msgs1: any;
   msgs2: any;
+  tabUser = false;
+  profil: any;
+  users = [];
+  userAfficher = [];
+  cols: any[];
+  profilLibelle: string;
   constructor(private profilServive: ProfilService,
               private messageService: MessageService) { }
 
@@ -58,5 +64,23 @@ export class ProfilComponent implements OnInit {
        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Profil archiver'});
      }
    );
+  }
+  detailProfilUsers(id, libelle) {
+   this.profilLibelle  = libelle;
+    this.profil = [];
+    this.userAfficher = [];
+    this.tabUser = true;
+    this.profilServive.getProfilById(id).pipe(first()).subscribe(
+      pro => {
+        this.users = pro['users'];
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.users.length ; i++) {
+          if (this.users[i].isdeleted === false) {
+            this.userAfficher.push(this.users[i]);
+          }
+        }
+        this.profil = this.userAfficher;
+        console.log(this.profil);
+      });
   }
 }

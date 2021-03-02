@@ -18,7 +18,10 @@ export class CreateGroupecompetenceComponent implements OnInit {
   selectedCompetenceAdvanced: any[];
   formGroupeCompetence: FormGroup;
   texts: string[] = [];
+  newCompetence = false;
   submitted: boolean;
+  nmbreChamp: any;
+  tabGrpe = [];
   constructor(private servicecompetence: CompetencesService,
               private messageservice: MessageService) { }
 
@@ -48,6 +51,19 @@ export class CreateGroupecompetenceComponent implements OnInit {
     }
     this.filteredCompetences = filtered;
   }
+  generateChamp(val) {
+    this.newCompetence = true ;
+    console.log(val);
+  }
+  onSearchChange(searchValue: any): void {
+    this.nmbreChamp = searchValue;
+    this.newCompetence = true ;
+    const tab = new Array({prenom: 'Abdou'});
+    for (let i = 0; i < this.nmbreChamp; i++) {
+      this.tabGrpe.push(tab);
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.formGroupeCompetence.valid) {
@@ -73,3 +89,4 @@ export class CreateGroupecompetenceComponent implements OnInit {
 
   }
 }
+;

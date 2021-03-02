@@ -70,24 +70,35 @@
       -->
     </div>
     <div class="col-xl-5 col-sm-12">
-      <div class="card">
-        <p-toolbar styleClass="p-mb-4">
-          <ng-template pTemplate="left">
-            <div class="row">
-              <div class="col">
-                <button pButton pRipple label="Lister" icon="pi pi-align-justify" class="p-button-warning p-mr-2" [routerLink]="['user-liste']" ></button>
-              </div>
-              <div class="col">
-                <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success" [routerLink]="['user-create']"></button>
-              </div>
-            </div>
-          </ng-template>
-          <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"
-                          styleClass="p-button-secondary"></p-fileUpload>
-          </ng-template>
-        </p-toolbar>
+    <app-card [hidHeader]="true" cardClass="support-bar overflow-hidden" blockClass="p-0" [isCardFooter]="true" footerClass="bg-white text-white">
+      <div class="p-20 pb-0">
+        <h2 class="m-0">Actions</h2>
+        <span class="text-c-green">Actions</span>
+        <p class="mb-3 mt-3">Total number of support requests that come in.</p>
       </div>
+      <div class="app-card-footer">
+        <div class="row text-center">
+          <div class="col">
+            <h4 class="m-0 text-white">
+              <button pButton pRipple label="Lister" icon="pi pi-align-justify" class="p-button-warning p-mr-2" [routerLink]="['user-liste']" ></button>
+            </h4>
+            <h6 class="text-black-50 p-mt-1">Liste Users</h6>
+          </div>
+          <div class="col">
+            <h4 class="m-0 text-white">
+              <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success" [routerLink]="['user-create']"></button>
+            </h4>
+            <h6 class="text-black-50 p-mt-1">Creation User</h6>
+          </div>
+          <div class="col">
+            <h4 class="m-0 text-black-50">
+              <button pButton pRipple label="Archive" icon="pi pi-trash" class="p-button-secondary" ></button>
+            </h4>
+            <h6 class="text-black-50 p-mt-1">Archive</h6>
+          </div>
+        </div>
+      </div>
+    </app-card>
     </div>
     <!-- site Analytics card end
     -->

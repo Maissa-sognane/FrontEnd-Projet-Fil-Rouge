@@ -3,25 +3,48 @@
   <div class="col-12">
     <app-card cardTitle="Modification Groupe Competence" headerClass="borderless" cardClass="table-card review-card" style="min-height: 50px">
       <div class="review-block">
-        <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="retourListe()" class="p-button-rounded p-button-secondary p-button-text"></button>
+        <div class="p-grid">
+          <div class="p-col-4">
+            <button pButton pRipple type="button" label="retour" icon="pi pi-arrow-left" class="p-button-rounded p-button-secondary p-button-text"
+                    (click)="retourListe()" title="Retour liste groupe competences"></button>
+            <button pButton pRipple type="button" title="Modifications" label="modifier" (click)="editerChamp()" icon="pi pi-pencil" class="p-button-rounded  p-button-text"></button>
+          </div>
+          <div class="p-col-2 p-offset-6" *ngIf="editer===true">
+            <button (click)="confirm1()" label="Annuler" title="Annuler les modifications" pButton pRipple type="button" icon="pi pi-times"
+                    class=" p-button-danger p-button-text"></button>
+            <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xl-12">
-            <form  style="height: 405px">
+            <form  [formGroup]="formGrpeCompetence" (ngSubmit)="onSubmit()"  style="height: 405px">
               <div class="row">
                 <label for="libelle" class="col-sm-2 col-form-label">Libelle</label>
-                <div class="col-sm-6">
-                  <input  formControlName="libelle" type="text" class="form-control" id="libelle" placeholder="Ecrire libelle">
+                <div class="col-sm-10" *ngIf="editer===false">
+                  <h6>{{detailGrpeCompetence.libelle}}</h6>
                 </div>
-                <!--  <div class="col-sm-4">
+                <div class="col-sm-10"  *ngIf="editer===true">
+                  <div class="row">
+                    <input  formControlName="libelle" [ngModel]="detailGrpeCompetence.libelle" type="text"  class="form-control" id="libelle" placeholder="Ecrire libelle">
+                  </div>
+                </div>
+                 <div class="col-sm-4">
                     <p-message severity="error" text="Libelle is required"
-                               *ngIf="!formGroupeCompetence.controls['libelle'].valid && formGroupeCompetence.controls['libelle'].dirty"></p-message>
-                  </div> -->
+                               *ngIf="!formGrpeCompetence.controls['libelle'].valid && formGrpeCompetence.controls['libelle'].dirty"></p-message>
+                  </div>
               </div>
               <br>
               <div class="row">
                 <label for="descriptif" class="col-sm-2 col-form-label">Descriptif</label>
-                <div class="col-sm-6">
-                  <textarea formControlName="descriptif" class="form-control" id="descriptif" placeholder="Ecrire le descriptif"></textarea>
+                <div class="col-sm-8" *ngIf="editer===false">
+                  <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custombar1">
+                    {{detailGrpeCompetence.description}}
+                  </p-scrollPanel>
+                </div>
+                <div class="col-sm-10" *ngIf="editer===true">
+                  <textarea style="height: 150px" formControlName="description" [ngModel]="detailGrpeCompetence.description"  class="form-control" id="descriptif" placeholder="Ecrire le descriptif"></textarea>
+                  <p-message severity="error" text="descriptif is required"
+                             *ngIf="!formGrpeCompetence.controls['description'].valid && formGrpeCompetence.controls['description'].dirty"></p-message>
                 </div>
                 <!--  <div class="col-sm-4">
                    <p-message severity="error" text="Libelle is required"
@@ -31,17 +54,25 @@
               <br>
               <div class="row">
                 <label  class="col-sm-2 col-form-label">Competences</label>
-                <div class="col-sm-6">
-                  <!--
-                  <p-autoComplete formControlName="competence" id="competence" [(ngModel)]="selectedCompetenceAdvanced" [suggestions]="filteredCompetences"
-                                  (completeMethod)="filterCompetence($event)" field="libelle"
-                                  [multiple]="true" [dropdown]="true" placeholder="Selectionner les competences">
-                    <ng-template let-competence pTemplate="item">
-                      <div class="country-item">
-                        <div>{{competence.libelle}}</div>
-                      </div>
-                    </ng-template>
-                  </p-autoComplete>-->
+                <div class="col-sm-10" *ngIf="editer===false">
+                  <div class="p-d-flex p-ai-center">
+                    <p-chip *ngFor="let comp of detailGrpeCompetence['competence']" label="{{comp.libelle}}"></p-chip>
+                  </div>
+                </div>
+                <div class="col-sm-10" *ngIf="editer===true">
+                 <p-autoComplete formControlName="competences" id="competence" [ngModel]="detailGrpeCompetence['competence']" [suggestions]="filteredCompetences"
+                                 (completeMethod)="filterCompetence($event)" field="libelle"
+                                 [multiple]="true" [dropdown]="true" placeholder="Selectionner les competences">
+                   <ng-template let-competence pTemplate="item">
+                     <div class="country-item">
+                       <div>{{competence.libelle}}</div>
+                     </div>
+                   </ng-template>
+                 </p-autoComplete>
+                  <div class="col-sm-4">
+                    <p-message severity="error" text="competence is required"
+                               *ngIf="!formGrpeCompetence.controls['competences'].valid && formGrpeCompetence.controls['competences'].dirty"></p-message>
+                  </div>
                 </div>
                 <!--  <div class="col-sm-4">
                  <p-message severity="error" text="Libelle is required"
@@ -51,7 +82,7 @@
               <br>
               <br>
               <div class="row">
-                <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-12" *ngIf="editer===true">
                   <button pButton pRipple type="submit" label="Modifier" class="p-button-success"></button>
                 </div>
               </div>

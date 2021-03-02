@@ -63,6 +63,7 @@
   .product-grid-item {
     margin: .5em;
     border: 1px solid #dee2e6;
+    padding: 2em;
 
     .product-grid-item-top,
     .product-grid-item-bottom {
@@ -87,62 +88,3 @@
     }
   }
 }
-p-overflow-hidden {
-  overflow: auto !important;
-}
-
-.card {
-  padding: 2rem;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
-  margin-bottom: 2rem;
-}
-
-@media screen and (max-width: 576px) {
-  :host ::ng-deep .product-list-item {
-    flex-direction: column;
-    align-items: center;
-
-    img {
-      width: 75%;
-      margin: 2rem 0;
-    }
-
-    .product-list-detail {
-      text-align: center;
-    }
-
-    .product-price {
-      align-self: center;
-    }
-
-    .product-list-action {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-list-action {
-      margin-top: 2rem;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-  }
-}
-
-.libelleGroupeCompetence{
-  width: 100%;
-  border-bottom: 2px solid;
-  background: cadetblue;
-}
-.card .card-header{
-  background: cadetblue;
-}
-.barreBorder{
-  border-bottom: 2px solid;
-  margin-left: -20px;
-  margin-right: -19px;
-  margin-bottom: 9px;
-}
-

@@ -2,6 +2,28 @@
 <div class="col-xl-12 col-sm-12">
   <div class="row">
     <div class="col-md-3">
+      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-red">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="text-c-red">90</h4>
+            <h6 class="text-muted m-b-0">Users</h6>
+          </div>
+          <div class="col-4 text-right">
+
+            <i class="fas fa-user-graduate f-28"></i>
+          </div>
+        </div>
+        <div class="app-card-footer">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <button pButton pRipple type="button" label="lister"
+                      class="p-button-raised p-button-secondary p-button-text" (click)="readUsers()" style="color: white"></button>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-md-3">
       <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-yellow">
         <div class="row align-items-center">
           <div class="col-8">
@@ -44,28 +66,6 @@
       </app-card>
     </div>
     <div class="col-md-3">
-      <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-red">
-        <div class="row align-items-center">
-          <div class="col-8">
-            <h4 class="text-c-red">90</h4>
-            <h6 class="text-muted m-b-0">Apprenants</h6>
-          </div>
-          <div class="col-4 text-right">
-
-            <i class="fas fa-user-graduate f-28"></i>
-          </div>
-        </div>
-        <div class="app-card-footer">
-          <div class="row align-items-center">
-            <div class="col-9">
-              <button pButton pRipple type="button" label="lister"
-                      class="p-button-raised p-button-secondary p-button-text" (click)="readApprenant()" style="color: white"></button>
-            </div>
-          </div>
-        </div>
-      </app-card>
-    </div>
-    <div class="col-md-3">
       <app-card [hidHeader]="true" [isCardFooter]="true" footerClass="bg-c-blue">
         <div class="row align-items-center">
           <div class="col-8">
@@ -95,8 +95,8 @@
     <div class="col-xl-7 col-md-12">
       <app-card cardTitle="Gestion Utilisateurs" cardClass="table-card" blockClass="p-0">
         <div class="table-responsive">
-          <div class="p-20 pb-0 mb-3 mt-3">
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+          <div class="p-20 pb-0 mb-3 ">
+            <button pButton pRipple title="Ajouter Utilisateur" icon="pi pi-user-plus" class="p-button-help" [routerLink]="['user-create']"></button>
           </div>
           <p-table
             [value]="UserAfficher"
@@ -174,63 +174,49 @@
     </div>
 
       <div class="col-xl-5 col-md-12" *ngIf="UserSelected">
-        <app-card>
+        <app-card cardTitle="Information de {{UserSelected.prenom}} {{UserSelected.nom}}">
           <form [formGroup]="userForm">
             <div class="latest-update-box">
-            <div class="row p-t-30 p-b-30">
-              <div class="col-auto text-right update-meta">
-                <p-avatar image="{{'data:image/jpeg;base64,' + UserSelected.avatar}}" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
+              <div class="p-grid">
+                <div class="p-col-4 update-meta">
+                  <p-avatar image="{{'data:image/jpeg;base64,' + UserSelected.avatar}}"  size="xlarge" shape="circle"></p-avatar>
+                </div>
+                <div class="p-col-4 p-offset-4">
+                  <button (click)="buttonModifier()" pButton pRipple type="button" label="modifier" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text"></button>
+                </div>
               </div>
-              <div class="col">
-                <a href="javascript:">
-                  <h4 >DETAIL</h4>
-                </a>
-                <p class="text-muted m-b-0">{{UserSelected.prenom}} {{UserSelected.nom}}</p>
-              </div>
-            </div>
+
             <div class="row p-b-30">
               <div class="col-auto text-right update-meta">
                 <p class="text-muted m-b-0 d-inline-flex">Nom</p>
               </div>
-              <div class="col">
-                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
-                  <ng-template pTemplate="display">
-                    {{UserSelected.nom}}
-                  </ng-template>
-                  <ng-template pTemplate="content">
-                    <input  formControlName="nom" type="text" id="prenom" placeholder="Modifier le nom" pInputText>
-                  </ng-template>
-                </p-inplace>
+              <div class="col" *ngIf="userEditer===false">
+                {{UserSelected.nom}}
+              </div>
+              <div class="col" *ngIf="userEditer===true">
+                <input  formControlName="nom" [ngModel]="UserSelected.nom" class="form-control" type="text" id="prenom" placeholder="Modifier le nom">
               </div>
             </div>
             <div class="row p-b-30">
               <div class="col-auto text-right update-meta">
                 <p class="text-muted m-b-0 d-inline-flex">Prenom</p>
               </div>
-              <div class="col">
-                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
-                  <ng-template pTemplate="display">
-                    {{UserSelected.prenom}}
-                  </ng-template>
-                  <ng-template pTemplate="content">
-                    <input  formControlName="prenom" type="text" placeholder="Modifier le prenom" pInputText>
-                  </ng-template>
-                </p-inplace>
+              <div class="col" *ngIf="userEditer===false">
+                {{UserSelected.prenom}}
+              </div>
+              <div class="col" *ngIf="userEditer===true">
+                <input  formControlName="prenom" [ngModel]="UserSelected.prenom" type="text" placeholder="Modifier le prenom" class="form-control">
               </div>
             </div>
             <div class="row p-b-30">
               <div class="col-auto text-right update-meta">
                 <p class="text-muted m-b-0 d-inline-flex">Email</p>
               </div>
-              <div class="col">
-                <p-inplace closable="closable"  [style]="{'min-height':'33px'}">
-                  <ng-template pTemplate="display">
-                    {{UserSelected.email}}
-                  </ng-template>
-                  <ng-template pTemplate="content">
-                    <input  formControlName="email" type="text" placeholder="Modifier email" pInputText>
-                  </ng-template>
-                </p-inplace>
+              <div class="col" *ngIf="userEditer===false">
+                {{UserSelected.email}}
+              </div>
+              <div class="col" *ngIf="userEditer===true">
+                <input  formControlName="email" class="form-control" [ngModel]="UserSelected.email" type="text" placeholder="Modifier email" >
               </div>
             </div>
             <div class="row p-b-30">
@@ -279,9 +265,18 @@
               </div>
             </div>
           </div>
-            <div class="text-center">
-              <button pButton pRipple type="submit"  label="Sauvegarder" class="p-button-sm p-button-success"
-                       title="Sauvegarder" (click)="editUser(UserSelected)"></button>
+            <div class="text-center" *ngIf="userEditer===true">
+              <div class="p-grid">
+                <div class="p-col-4">
+                  <button pButton pRipple type="submit"  label="Sauvegarder" class="p-button-sm p-button-success"
+                          title="Sauvegarder" (click)="editUser(UserSelected)"></button>
+                </div>
+                <div class="p-col-4 p-offset-4">
+                  <button (click)="buttonAnnuler()" pButton pRipple type="button"  label="Annuler" class="p-button-sm p-button-danger"
+                          title="Annuler les modificatiions"></button>
+                </div>
+              </div>
+
 
             <!--<a href="javascript:" class="b-b-primary text-primary">View all Projects</a>-->
           </div>

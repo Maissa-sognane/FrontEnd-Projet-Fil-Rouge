@@ -22,7 +22,7 @@ import { ConfigurationComponent } from './theme/layout/admin/configuration/confi
 
 import {AccordionModule} from 'primeng/accordion';
 // @ts-ignore
-import {MenuItem, MessageService, SharedModule} from 'primeng/api';
+import {ConfirmationService, MenuItem, MessageService, SharedModule} from 'primeng/api';
 
 import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-full-screen';
 
@@ -94,6 +94,15 @@ import {RatingModule} from 'primeng/rating';
 import {ChipsModule} from 'primeng/chips';
 import {AutoComplete, AutoCompleteModule} from 'primeng/autocomplete';
 import {ChipModule} from 'primeng/chip';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import { DetailProfilComponent } from './profil/detail-profil/detail-profil.component';
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import { ReferentielComponent } from './referentiel/referentiel.component';
+import { ListReferentielComponent } from './referentiel/list-referentiel/list-referentiel.component';
+import { CreateReferentielComponent } from './referentiel/create-referentiel/create-referentiel.component';
+import {TooltipModule} from 'primeng/tooltip';
+
 
 registerPlugin(FilePondPluginFileValidateType);
 // @ts-ignore
@@ -128,70 +137,79 @@ registerPlugin(FilePondPluginFileValidateType);
     GroupecompetenceComponent,
     CreateGroupecompetenceComponent,
     EditGroupecompetenceComponent,
-    ListeGroupecompetenceComponent
+    ListeGroupecompetenceComponent,
+    DetailProfilComponent,
+    ReferentielComponent,
+    ListReferentielComponent,
+    CreateReferentielComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    NgbDropdownModule,
-    NgbTooltipModule,
-    NgbButtonsModule,
-    NgbTabsetModule,
-    HttpClientModule,
-    ButtonModule,
-    RippleModule,
-    TableModule,
-    CalendarModule,
-    SliderModule,
-    DialogModule,
-    MultiSelectModule,
-    ContextMenuModule,
-    DropdownModule,
-    ButtonModule,
-    ToastModule,
-    InputTextModule,
-    ProgressBarModule,
-    HttpClientModule,
-    FormsModule,
-    SharedModule,
-    AvatarModule,
-    AvatarGroupModule,
-    ToolbarModule,
-    FileUploadModule,
-    MultiSelectModule,
-    CardModule,
-    ReactiveFormsModule,
-    StepsModule,
-    InplaceModule,
-    MessagesModule,
-    MessageModule,
-    FilePondModule,
-    DropdownModule,
-    BasicTabsPillsRoutingModule,
-    SharedModule,
-    ListboxModule,
-    ScrollPanelModule,
-    TabViewModule,
-    OrderListModule,
-    SidebarModule,
-    TabMenuModule,
-    FieldsetModule,
-    DataViewModule,
-    RatingModule,
-    ChipsModule,
-    AutoCompleteModule,
-    ChipModule,
-    MessageModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        NgbDropdownModule,
+        NgbTooltipModule,
+        NgbButtonsModule,
+        NgbTabsetModule,
+        HttpClientModule,
+        ButtonModule,
+        RippleModule,
+        TableModule,
+        CalendarModule,
+        SliderModule,
+        DialogModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        DropdownModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        ProgressBarModule,
+        HttpClientModule,
+        FormsModule,
+        SharedModule,
+        AvatarModule,
+        AvatarGroupModule,
+        ToolbarModule,
+        FileUploadModule,
+        MultiSelectModule,
+        CardModule,
+        ReactiveFormsModule,
+        StepsModule,
+        InplaceModule,
+        MessagesModule,
+        MessageModule,
+        FilePondModule,
+        DropdownModule,
+        BasicTabsPillsRoutingModule,
+        SharedModule,
+        ListboxModule,
+        ScrollPanelModule,
+        TabViewModule,
+        OrderListModule,
+        SidebarModule,
+        TabMenuModule,
+        FieldsetModule,
+        DataViewModule,
+        RatingModule,
+        ChipsModule,
+        AutoCompleteModule,
+        ChipModule,
+        MessageModule,
+        ConfirmDialogModule,
+        ConfirmPopupModule,
+        VirtualScrollerModule,
+        TooltipModule,
+    ],
   providers: [
     NavigationItem,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthGuard,
     CustomerService,
-    MessageService
+    MessageService,
+    ConfirmationService
     // provider used to create fake backend
     // fakeBackendProvider
   ],

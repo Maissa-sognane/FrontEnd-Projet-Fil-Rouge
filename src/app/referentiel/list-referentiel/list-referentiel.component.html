@@ -1,0 +1,60 @@
+<app-card cardTitle="Liste Reférentiels" headerClass="borderless" cardClass="table-card review-card">
+  <p-scrollPanel [style]="{width: '100%', height: '700px'}" styleClass="custombar1">
+    <div class="row" #partieRef>
+      <div class="col-12">
+        <p-dataView #dv [value]="referentiels" [paginator]="false" [rows]="9" filterBy="libelle"
+                    [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+          <ng-template pTemplate="header">
+            <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+              <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                </span>
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+          </ng-template>
+          <ng-template let-ref pTemplate="gridItem">
+            <div  class="p-xl-6 p-md-12">
+              <div class="product-grid-item card">
+                <div class="product-grid-item-top">
+                  <div>
+                    <i class="pi pi-tag product-category-icon"></i>
+                    <span class="product-category">{{ref.libelle}}</span>
+                  </div>
+                </div>
+                <p-fieldset  legend="Presentation" [transitionOptions]="'4ms'" [toggleable]="true" [collapsed]="true">
+                  {{ref.presentation}}
+                </p-fieldset>
+                <p-fieldset  legend="Groupes Competences" [transitionOptions]="'4ms'" [toggleable]="true" [collapsed]="true">
+                  <h6 *ngFor="let grpecompetence of ref['groupeCompetence']">{{grpecompetence.libelle}}</h6>
+                </p-fieldset>
+                <p-fieldset  legend="Programme" [toggleable]="true" [collapsed]="true">
+                  <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf(ref)"  class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                </p-fieldset>
+                <p-fieldset  legend="Critere Evaluation" [toggleable]="true" [collapsed]="true">
+                  <p class="card-text">{{ref.critereEvaluation}}</p>
+                </p-fieldset>
+                <p-fieldset  legend="Critere Admission" [toggleable]="true" [collapsed]="true">
+                  <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custombar1">
+                    {{ref.critereAdmission}}
+                  </p-scrollPanel>
+                </p-fieldset>
+                <div class="product-grid-item-bottom">
+
+                  <p-button (click)="visibleSidebar1 = true"  label="detail" icon="pi pi-pencil" title="modifier"></p-button>
+                  <p-button  icon="pi pi-times" styleClass="p-button-danger" label="Archiver" title="Archiver"></p-button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+    </div>
+  </p-scrollPanel>
+  <p-sidebar [(visible)]="visibleSidebar1" [fullScreen]="true" [baseZIndex]="10000">
+    <h1 style="font-weight:normal">Left Sidebar</h1>
+    <p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success"></p-button>
+    <p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+  </p-sidebar>
+</app-card>
+

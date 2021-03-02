@@ -1,7 +1,8 @@
 <p-toast></p-toast>
 <div class="row">
   <div class="col-12">
-    <app-card cardTitle="Creation Groupe Competence" headerClass="borderless" cardClass="table-card review-card" style="min-height: 50px">
+    <app-card cardTitle="Creation Groupe Competence" headerClass="borderless" cardClass="table-card review-card" style="height: auto">
+      <p-scrollPanel [style]="{width: '100%', height: '500px'}">
       <div class="review-block">
         <div class="row">
           <div class="col-xl-12">
@@ -50,11 +51,105 @@
               <div class="row">
                 <label for="nouvellecompetence" class="col-sm-2 col-form-label">Nouvelles Competences</label>
                 <div class="col-sm-10">
+                  <p-button  icon="pi pi-plus" label="Ajouter"></p-button>
                   <p-chips formControlName="nouvellecompetences" id="nouvellecompetence"  placeholder="Creer nouvelles competences"
                            [(ngModel)]="competences" name="nouvellecompetence"></p-chips>
+                  <input type="text" class="form-control" (input)="onSearchChange($event.target.value)">
                 </div>
-              </div>
-              <br>
+                  <div class="col-sm-10" *ngFor="let nmbre of tabGrpe, let index=index">
+                    <div class="row">
+                      <div class="col-xl-12 col-md-12">
+                        <div class="latest-update-box">
+                          <div class="row p-t-30 p-b-30">
+                            <div class="col-xl-3 col-md-12 update-meta">
+                              <span class="text-muted m-b-0 d-inline-flex">Libelle</span>
+                            </div>
+                            <div class="col-xl-9 col-md-12">
+                              <input formControlName="libelleNiveau{{index}}" type="text"  class="form-control"   placeholder="Ecrire le libelle">
+                            </div>
+                          </div>
+                          <div class="row p-t-30 p-b-30">
+                            <div class="col-xl-3 col-md-12  update-meta">
+                              <span class="text-muted m-b-0 d-inline-flex">Descriptif</span>
+                            </div>
+                            <div class="col-xl-9 col-md-12">
+                              <textarea  class="form-control" placeholder="Ecrire le descriptif du competence"></textarea>
+                            </div>
+                          </div>
+                          <div class="row p-b-30">
+                            <div class="col-xl-3 col-md-12 update-meta">
+                              <span class="text-muted m-b-0 d-inline-flex">Niveaux</span>
+                            </div>
+                            <div class="col-xl-9 col-md-12">
+                              <p-tabView>
+                                <p-tabPanel header="Niveau1">
+                                  <div class="row border border-3">
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <textarea   class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                                      </p-scrollPanel>
+                                    </div>
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Groupe Action</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                          <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                            <textarea   class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                          </p-scrollPanel>
+                                        </p-scrollPanel>
+                                      </p-scrollPanel>
+                                    </div>
+                                  </div>
+                                </p-tabPanel>
+                                <p-tabPanel header="Niveau2">
+                                  <div class="row border border-3">
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <textarea  class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                                      </p-scrollPanel>
+                                    </div>
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Groupe Action</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                          <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                            <textarea   class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                          </p-scrollPanel>
+                                        </p-scrollPanel>
+                                      </p-scrollPanel>
+                                    </div>
+                                  </div>
+                                </p-tabPanel>
+                                <p-tabPanel header="Niveau3">
+                                  <div class="row border border-3">
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Critére Evaluation</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <textarea   class="form-control" style="height: 200px" placeholder="Entrer critére evaluation"></textarea>
+                                      </p-scrollPanel>
+                                    </div>
+                                    <div class="col-xl-6 col-md-12">
+                                      <h5 style="text-align: center; color: red">Groupe Action</h5>
+                                      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                          <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                            <textarea   class="form-control" style="height: 200px" placeholder="Entrer le groupe action"></textarea>
+                                          </p-scrollPanel>
+                                        </p-scrollPanel>
+                                      </p-scrollPanel>
+                                    </div>
+                                  </div>
+                                </p-tabPanel>
+                              </p-tabView>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
               <div class="row">
                 <div class="col-xl-6 col-md-12">
                   <button [disabled]="!formGroupeCompetence.valid" pButton pRipple type="submit" label="Ajouter" class="p-button-success"></button>
@@ -63,8 +158,8 @@
             </form>
           </div>
         </div>
-
       </div>
+      </p-scrollPanel>
     </app-card>
   </div>
 </div>

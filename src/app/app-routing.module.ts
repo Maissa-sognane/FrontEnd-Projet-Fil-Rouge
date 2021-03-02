@@ -16,6 +16,9 @@ import {GroupecompetenceComponent} from './groupecompetence/groupecompetence.com
 import {ListeGroupecompetenceComponent} from './groupecompetence/liste-groupecompetence/liste-groupecompetence.component';
 import {CreateGroupecompetenceComponent} from './groupecompetence/create-groupecompetence/create-groupecompetence.component';
 import {EditGroupecompetenceComponent} from './groupecompetence/edit-groupecompetence/edit-groupecompetence.component';
+import {DetailProfilComponent} from './profil/detail-profil/detail-profil.component';
+import {ReferentielComponent} from './referentiel/referentiel.component';
+import {ListReferentielComponent} from './referentiel/list-referentiel/list-referentiel.component';
 
 const routes: Routes = [
   {
@@ -93,7 +96,13 @@ const routes: Routes = [
       },
       {
         path: 'profil',
-        component: ProfilComponent
+        component: ProfilComponent,
+        children: [
+          {
+            path: ':id/users',
+            component: DetailProfilComponent
+          }
+        ]
       },
       {
         path: 'competences',
@@ -133,6 +142,16 @@ const routes: Routes = [
             path: 'creation',
             component: CreateGroupecompetenceComponent
           },
+        ]
+      },
+      {
+        path: 'referentiel',
+        component: ReferentielComponent,
+        children: [
+          {
+            path: 'liste',
+            component: ListReferentielComponent
+          }
         ]
       }
     ]

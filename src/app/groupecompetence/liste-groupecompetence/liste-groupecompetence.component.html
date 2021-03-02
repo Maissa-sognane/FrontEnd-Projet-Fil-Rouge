@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <router-outlet></router-outlet>
+
 <div class="row">
   <!--
     <div *ngFor="let groupecompetence of groupecompetence" class="col-xl-4 col-md-6">
@@ -48,16 +49,13 @@
         </div>
       </div>
     </div>
-  -->
-    <div *ngIf="editing===true" class="col-xl-12">
+    -->
+    <div  class="col-xl-12">
       <div class="card">
-        <p-dataView  #dv [value]="groupecompetence" [paginator]="true" [rows]="4" filterBy="libelle"
+        <p-dataView  #dv [value]="groupecompetence" [paginator]="false" [rows]="4" filterBy="libelle"
                     [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
           <ng-template pTemplate="header">
             <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-              <!--
-              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
-              -->
               <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                     <i class="pi pi-search"></i>
                     <input type="search" pInputText placeholder="Search by libelle" (input)="dv.filter($event.target.value)">
@@ -70,31 +68,24 @@
               <div class="product-list-item">
                 <div class="product-list-detail">
                   <div class="product-name">{{groupecompetenceListe.libelle}}</div>
-                  <!--
-                  <div class="product-description">Competences</div>
-                  <div *ngFor="let competence of groupecompetenceListe['competence']">
-                    <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{competence.libelle}}</span>
-                  </div>
-                  -->
                 </div>
                 <div class="product-list-action">
                   <span class="product-price">Action</span>
-                  <p-button icon="pi pi-pencil" title="modifier" label="modifier"></p-button>
-                  <p-button icon="pi pi-times" styleClass="p-button-danger" title="supprimer" label="archiver"></p-button>
-              <!--    <span [class]="'product-badge status-' + product.id.toLowerCase()">{{product.id}}</span> -->
+                  <p-button  [routerLink]="['edit', groupecompetenceListe.id]"  icon="pi pi-pencil" label="modifier" title="modifier"></p-button>
+                  <p-button  (click)="confirm($event, groupecompetenceListe.id)"  icon="pi pi-times" styleClass="p-button-danger" label="Archiver" title="Archiver"></p-button>
                 </div>
               </div>
             </div>
           </ng-template>
           <ng-template let-groupecompetenceCard pTemplate="gridItem">
-              <div class="p-xl-6 p-md-12">
+              <div  class="p-xl-6 p-md-12">
                 <div class="product-grid-item card">
                   <div class="product-grid-item-top">
                     <div>
                       <i class="pi pi-tag product-category-icon"></i>
                       <span class="product-category">{{groupecompetenceCard.libelle}}</span>
                     </div>
-                    <!--   <span [class]="'product-badge status-' + product.id.toLowerCase()">{{product.id}}</span> -->
+
                   </div>
                     <p-fieldset  legend="Competences" [transitionOptions]="'4ms'" [toggleable]="true" [collapsed]="true">
                       <h6 *ngFor="let competence of groupecompetenceCard['competence']">{{competence.libelle}}</h6>
@@ -106,18 +97,65 @@
                         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </p-fieldset>
                     <div class="product-name">Description</div>
-                    <div class="product-description">Description</div>
+                    <div class="product-description">
+                      <p-fieldset  legend="Description" [toggleable]="true" [collapsed]="true">
+                        <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custombar1">
+                          {{groupecompetenceCard.description}}
+                        </p-scrollPanel>
+                      </p-fieldset>
+                    </div>
                   <div class="product-grid-item-bottom">
-                   <!-- <span class="product-price">Action</span> -->
-                    <p-button  [routerLink]="['edit', groupecompetenceCard.id]" icon="pi pi-pencil" title="modifier"></p-button>
-                    <p-button icon="pi pi-times" styleClass="p-button-danger" title="supprimer"></p-button>
+
+                    <p-button  [routerLink]="['edit', groupecompetenceCard.id]" label="detail"  icon="pi pi-pencil" title="modifier"></p-button>
+                    <p-button  (click)="confirm($event, groupecompetenceCard.id)"  icon="pi pi-times" styleClass="p-button-danger" label="Archiver" title="Archiver"></p-button>
                   </div>
                 </div>
             </div>
           </ng-template>
+          <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
         </p-dataView>
+        <p-confirmPopup></p-confirmPopup>
       </div>
     </div>
 </div>
+
+<p-orderList [value]="groupecompetence" controlsPosition="right" [listStyle]="{'height':'auto'}"  header="List Groupes Competences"
+             filterBy="libelle" filterPlaceholder="Filter by libelle" [dragdrop]="false" layout="grid">
+  <ng-template let-groupecompetenceCard pTemplate="gridItem">
+    <div  class="p-xl-12 p-md-12">
+      <div class="product-grid-item card">
+        <div class="product-grid-item-top">
+          <div>
+            <i class="pi pi-tag product-category-icon"></i>
+            <span class="product-category">{{groupecompetenceCard.libelle}}</span>
+          </div>
+          <!--   <span [class]="'product-badge status-' + product.id.toLowerCase()">{{product.id}}</span> -->
+        </div>
+        <p-fieldset  legend="Competences" [transitionOptions]="'4ms'" [toggleable]="true" [collapsed]="true">
+          <h6 *ngFor="let competence of groupecompetenceCard['competence']">{{competence.libelle}}</h6>
+        </p-fieldset>
+        <p-fieldset  legend="Tags" [toggleable]="true" [collapsed]="true">
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </p-fieldset>
+        <div class="product-name">Description</div>
+        <div class="product-description">
+          <p-fieldset  legend="Description" [toggleable]="true" [collapsed]="true">
+            <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custombar1">
+              {{groupecompetenceCard.description}}
+            </p-scrollPanel>
+          </p-fieldset>
+        </div>
+        <div class="product-grid-item-bottom">
+          <!-- <span class="product-price">Action</span> -->
+          <p-button  [routerLink]="['edit', groupecompetenceCard.id]" label="detail"  icon="pi pi-pencil" title="modifier"></p-button>
+          <p-button  (click)="confirm($event, groupecompetenceCard.id)"  icon="pi pi-times" styleClass="p-button-danger" label="Archiver" title="Archiver"></p-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-orderList>
 
 

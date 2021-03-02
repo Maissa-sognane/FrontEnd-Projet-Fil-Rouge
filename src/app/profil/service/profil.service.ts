@@ -35,9 +35,8 @@ export class ProfilService {
   updateProfil(id, data): Observable<Profil[]> {
     return this.http.put<Profil[]>(`${environment.apiUrl}/api/admin/profil/${id}`, data, this.httpOptions);
   }
-
-  get(id): Observable<Profil[]> {
-    return this.http.get<Profil[]>(`${environment.apiUrl}/api/admin/profil/${id}`);
+  getProfilById(id) {
+    return this.http.get(`${environment.apiUrl}/api/admin/profil/${id}`);
   }
 
   delete(id, data): Observable<Profil[]> {

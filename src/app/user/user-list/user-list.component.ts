@@ -43,6 +43,8 @@ export class UserListComponent implements OnInit {
   adminTab = [];
   id = null;
   userForm: FormGroup;
+  fullUsers: User[];
+  userEditer = false;
 
   constructor(
     private customerService: CustomerService,
@@ -63,11 +65,15 @@ export class UserListComponent implements OnInit {
       // @ts-ignore
       this.users = users;
       this.UserAfficher = users['hydra:member'];
+      this.fullUsers = this.UserAfficher.filter(functionFileterUser);
+      this.UserAfficher = this.UserAfficher.filter(functionFileterUser);
       this.userRead = users['hydra:member'];
-      if (this.temoinAdmin === true) {
-        alert('Admin');
-      }
+      this.userRead = this.userRead.filter(functionFileterUser);
     });
+    // tslint:disable-next-line:only-arrow-functions
+    const functionFileterUser = function(user) {
+      return user['@type'] !== 'Apprenant' && user['isdeleted'] === false;
+    };
     this.representatives = [
       { name: 'Amy Elsner', image: 'amyelsner.png' },
       { name: 'Anna Fali', image: 'annafali.png' },
@@ -168,19 +174,16 @@ export class UserListComponent implements OnInit {
       }
     }
   }
-  readUsers(): void {
+  readUsers() {
+    console.log(this.fullUsers);
+    this.UserAfficher = [];
+    this.UserAfficher = this.fullUsers;
+    return this.UserAfficher;
   }
   readAdmin() {
     this.adminTab = [];
     this.temoinAdmin = true;
     this.userRead.forEach(user => this.attribProfil(user));
-    this.UserAfficher = [];
-    this.UserAfficher = this.adminTab;
-    return this.UserAfficher;
-  }
-  readApprenant() {
-    this.adminTab = [];
-    this.userRead.forEach(user => this.attributProfilApprenant(user));
     this.UserAfficher = [];
     this.UserAfficher = this.adminTab;
     return this.UserAfficher;
@@ -224,6 +227,12 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  buttonModifier() {
+    this.userEditer = true;
+  }
+  buttonAnnuler() {
+    this.userEditer = false;
+  }
   editUser(user) {
     /*
         profil: new FormControl(null, Validators.required),
